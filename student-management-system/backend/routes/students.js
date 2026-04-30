@@ -6,15 +6,8 @@ const Student = require('../models/Student');
 const { protect, adminOnly, teacherOrAdmin } = require('../middleware/auth');
 
 // Multer setup for profile images
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'uploads/'),
-  filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`)
-});
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
-
-// Ensure uploads folder exists
-const fs = require('fs');
-if (!fs.existsSync('uploads')) fs.mkdirSync('uploads');
 
 // GET /api/students - Get all students (with search, pagination)
 router.get('/', protect, async (req, res) => {
