@@ -9,7 +9,6 @@ const Signup = () => {
   const [form, setForm] = useState({
     name: '', email: '', password: '', confirmPassword: '',
     role: 'student', phone: '', address: '',
-    // Student-specific
     rollNumber: '', age: '', gender: 'Male', class: '', section: 'A',
     guardianName: '', guardianPhone: '', dateOfBirth: ''
   });
@@ -17,6 +16,8 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const { signup } = useAuth();
   const navigate = useNavigate();
+
+  const isMobile = window.innerWidth < 500;
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
@@ -79,12 +80,12 @@ const Signup = () => {
 
         <div style={{
           background: 'rgba(30,41,59,0.8)', backdropFilter: 'blur(20px)',
-          borderRadius: '20px', padding: '2rem',
+          borderRadius: '20px', padding: isMobile ? '1.25rem' : '2rem',
           border: '1px solid rgba(99,102,241,0.2)',
           boxShadow: '0 25px 50px rgba(0,0,0,0.5)'
         }}>
           <form onSubmit={handleSubmit}>
-            {/* STEP 1: Account Info */}
+            {/* STEP 1 */}
             {step === 1 && (
               <>
                 <h3 style={{ color: 'white', margin: '0 0 1.25rem', fontSize: '1rem' }}>Account Information</h3>
@@ -99,7 +100,7 @@ const Signup = () => {
                   <input style={inputStyle} type="email" required value={form.email} onChange={e => set('email', e.target.value)} placeholder="ali@school.edu" />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <label style={labelStyle}>Password</label>
                     <div style={{ position: 'relative' }}>
@@ -124,7 +125,7 @@ const Signup = () => {
                   </select>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <label style={labelStyle}>Phone</label>
                     <input style={inputStyle} value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="+92 300 0000000" />
@@ -158,12 +159,12 @@ const Signup = () => {
               </>
             )}
 
-            {/* STEP 2: Student Profile */}
+            {/* STEP 2 */}
             {step === 2 && form.role === 'student' && (
               <>
                 <h3 style={{ color: 'white', margin: '0 0 1.25rem', fontSize: '1rem' }}>Student Profile Details</h3>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <label style={labelStyle}>Roll Number</label>
                     <input style={inputStyle} required value={form.rollNumber} onChange={e => set('rollNumber', e.target.value)} placeholder="STU-001" />
@@ -174,7 +175,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <label style={labelStyle}>Gender</label>
                     <select style={{ ...inputStyle, cursor: 'pointer' }} value={form.gender} onChange={e => set('gender', e.target.value)}>
@@ -189,7 +190,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <label style={labelStyle}>Class</label>
                     <input style={inputStyle} required value={form.class} onChange={e => set('class', e.target.value)} placeholder="10th Grade" />
@@ -202,7 +203,7 @@ const Signup = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
                   <div>
                     <label style={labelStyle}>Guardian Name</label>
                     <input style={inputStyle} value={form.guardianName} onChange={e => set('guardianName', e.target.value)} placeholder="Parent/Guardian" />
